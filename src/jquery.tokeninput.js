@@ -46,6 +46,7 @@ var DEFAULT_SETTINGS = {
     onAdd: null,
     onDelete: null,
     onReady: null,
+    onBlur: null,
 
     // Other settings
     idPrefix: "token-input-",
@@ -205,8 +206,13 @@ $.TokenList = function (input, url_or_data, settings) {
             }
         })
         .blur(function () {
+            var callback = settings.onBlur;
+            if($.isFunction(callback)) {
+                callback.call(this);
+            } else {
+                $(this).val("");
+            }
             hide_dropdown();
-            $(this).val("");
         })
         .bind("keyup keydown blur update", resize_input)
         .keydown(function (event) {
