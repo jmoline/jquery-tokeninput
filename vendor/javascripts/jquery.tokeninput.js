@@ -1,1 +1,0 @@
-../../src/jquery.tokeninput.js
