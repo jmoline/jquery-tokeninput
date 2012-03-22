@@ -26,7 +26,7 @@ var DEFAULT_SETTINGS = {
 
     // Display settings
     hintText: "Type in a search term",
-    noResultsText: "No results",
+    noResults: "No results",
     searchingText: "Searching...",
     deleteText: "&times;",
     animateDropdown: true,
@@ -753,8 +753,12 @@ $.TokenList = function (input, url_or_data, settings) {
                 dropdown_ul.show();
             }
         } else {
-            if(settings.noResultsText) {
-                dropdown.html("<p>"+settings.noResultsText+"</p>");
+            if(settings.noResults) {
+                var text = settings.noResults;
+                if($.isFunction(settings.noResults)) {
+                    text = settings.noResults.call(this, query);
+                }
+                dropdown.html("<p>"+text+"</p>");
                 show_dropdown();
             }
         }
